@@ -45,7 +45,14 @@ namespace VaselinaWeb.DataModel.Repositories
 
         public async Task<T> Find(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
         {
-            return await context.Set<T>().Include(includes.FirstOrDefault()).Where(predicate).FirstOrDefaultAsync();
+            IQueryable<T> consulta = context.Set<T>().Where(predicate);
+
+            foreach (var item in includes)
+            {
+                consulta = consulta.Include(item);
+            }
+
+            return await consulta.FirstOrDefaultAsync();
         }
 
         public async Task<IList<T>> FindAll(Expression<Func<T, bool>> predicate)

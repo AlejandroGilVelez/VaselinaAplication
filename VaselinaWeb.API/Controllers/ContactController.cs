@@ -2,6 +2,7 @@
 using Framework.Models;
 using Framework.Utilidades;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.Collections.Generic;
@@ -17,14 +18,17 @@ namespace VaselinaWeb.API.Controllers
         #region Atributos
 
         private readonly IContactRepository contactRepository;
+        private readonly IConfiguration configuration;
+
 
         #endregion
 
         #region Constructor
 
-        public ContactController(IContactRepository contactRepository)
+        public ContactController(IContactRepository contactRepository, IConfiguration configuration)
         {
             this.contactRepository = contactRepository;
+            this.configuration = configuration;
         }
 
         #endregion
@@ -115,10 +119,9 @@ namespace VaselinaWeb.API.Controllers
 
         [HttpPost("Create")]
         public async Task<IActionResult> Create([FromBody] ContactDto contact)
-        {
-            var result = contact;
+        {          
 
-            if (result == null)
+            if (contact == null)
             {
                 return BadRequest("No existe un contacto para guardar");
             }
@@ -137,8 +140,10 @@ namespace VaselinaWeb.API.Controllers
 
             contactClient = await contactRepository.Add(contactClient);
 
-            
-            UtilsSendEmail.SendEmail("gelu170@gmail.com", contactClient.Nombres, contactClient.Empresa, contactClient.Correo, contactClient.Telefono, contactClient.Mensaje);
+            var sender = configuration.GetSection("Settings").GetSection("EnvioCorreo").GetSection("Sender").Value;
+            var password = configuration.GetSection("Settings").GetSection("EnvioCorreo").GetSection("Password").Value;
+
+            UtilsSendEmail.SendEmail("gelu170@gmail.com", contactClient.Nombres, contactClient.Empresa, contactClient.Correo, contactClient.Telefono, contactClient.Mensaje, sender, password);
 
             return Ok();
 

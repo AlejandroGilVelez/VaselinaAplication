@@ -190,6 +190,23 @@ namespace VaselinaWeb.API.Controllers
 
         }
 
+        [HttpPost("CambioEstado")]
+        public async Task<IActionResult> CambioEstado([FromBody] CambioEstadoDto user)
+        {
+            var usuario = await userRepository.Find(x => x.Id == user.Id);
+
+            if (usuario == null)
+            {
+                return BadRequest("El usuario no existe");
+            }
+
+            usuario.Activo = user.Activo;
+
+            await userRepository.Edit(usuario);
+
+            return Ok();
+        }
+
         #endregion
     }
 }

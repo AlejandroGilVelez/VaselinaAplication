@@ -40,6 +40,7 @@ namespace VaselinaWeb.API
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IContactRepository, ContactRepository>();
             services.AddScoped<ICambioPasswordRepository, CambioPasswordRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
 
             // Definimos autenticación del aplicativo
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
