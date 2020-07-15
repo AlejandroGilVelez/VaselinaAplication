@@ -15,5 +15,7 @@ namespace Framework.Data
 
         public DbSet<CambioPassword> CambiosPasswords { get; set; }
 
+        public DbSet<Product> Products { get; set; }
+
     }
 }

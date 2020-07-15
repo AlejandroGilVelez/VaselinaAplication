@@ -50,25 +50,23 @@ namespace VaselinaWeb.API.Controllers
             {
                 return NotFound();
             }
+                        
+            List<ContactDto> contacts = new List<ContactDto>();
 
-            // El modelo y el dto son los mismos datos ud es una gva, no habia necesidad de hacer esto.
-            //List<ContactDto> contacts = new List<ContactDto>();
+            foreach (var item in result)
+            {
+                contacts.Add(new ContactDto
+                {
+                    Id = item.Id,
+                    Nombres = item.Nombres,
+                    Empresa = item.Empresa,
+                    Correo = item.Correo,
+                    Telefono = item.Telefono,
+                    Mensaje = item.Mensaje
+                });
+            }
 
-            //foreach (var item in result)
-            //{
-            //    contacts.Add(new ContactDto
-            //    {
-            //        Id = item.Id,
-            //        Nombres = item.Nombres,
-            //        Empresa = item.Empresa,
-            //        Correo = item.Correo,
-            //        Telefono = item.Telefono,
-            //        Mensaje = item.Mensaje
-            //    });
-            //}
-
-
-            return Ok();
+            return Ok(contacts);
         }
 
         /// <summary>
@@ -143,7 +141,7 @@ namespace VaselinaWeb.API.Controllers
             var sender = configuration.GetSection("Settings").GetSection("EnvioCorreo").GetSection("Sender").Value;
             var password = configuration.GetSection("Settings").GetSection("EnvioCorreo").GetSection("Password").Value;
 
-            UtilsSendEmail.SendEmail("gelu170@gmail.com", contactClient.Nombres, contactClient.Empresa, contactClient.Correo, contactClient.Telefono, contactClient.Mensaje, sender, password);
+            UtilsSendEmail.SendEmailNotificacion("gelu170@gmail.com", contactClient.Nombres, contactClient.Empresa, contactClient.Correo, contactClient.Telefono, contactClient.Mensaje, sender, password);
 
             return Ok();
 

@@ -18,5 +18,7 @@ namespace Framework.Dtos
         public string Password { get; set; }
 
         public bool Activo { get; set; }
+
+        public bool CambioPassword { get; set; }
     }
 }

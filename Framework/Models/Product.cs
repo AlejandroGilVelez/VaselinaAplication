@@ -1,5 +1,4 @@
-﻿using Org.BouncyCastle.Bcpg.Attr;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Framework.Models
 {
@@ -13,12 +12,11 @@ namespace Framework.Models
         [Required]
         public string Descripcion { get; set; }
 
-        
+
         [Required]
         public int Peso { get; set; }
 
         [Required]
         public string Imagen { get; set; }
-
     }
 }
