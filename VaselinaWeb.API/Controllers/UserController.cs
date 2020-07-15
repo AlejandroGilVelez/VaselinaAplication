@@ -1,7 +1,9 @@
 ﻿using Framework.Dtos;
 using Framework.Models;
+using Framework.Utilidades;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,14 +20,18 @@ namespace VaselinaWeb.API.Controllers
         #region Atributos
 
         private readonly IUserRepository userRepository;
+        private readonly ICambioPasswordRepository cambioPasswordRepository;
+        private readonly IConfiguration configuration;
 
         #endregion
 
         #region Constructor
         
-        public UserController(IUserRepository userRepository)
+        public UserController(IUserRepository userRepository, ICambioPasswordRepository cambioPasswordRepository, IConfiguration configuration)
         {
             this.userRepository = userRepository;
+            this.cambioPasswordRepository = cambioPasswordRepository;
+            this.configuration = configuration;
         }
 
         #endregion
@@ -59,7 +65,8 @@ namespace VaselinaWeb.API.Controllers
                     Apellidos = item.Apellidos,
                     Correo = item.Correo,
                     Telefono = item.Telefono,
-                    Activo = item.Activo                    
+                    Activo = item.Activo,
+                    CambioPassword = item.CambioPassword
                 });
             }
 
@@ -90,7 +97,8 @@ namespace VaselinaWeb.API.Controllers
                 Apellidos = result.Apellidos,
                 Correo = result.Correo,
                 Telefono = result.Telefono,
-                Activo = result.Activo
+                Activo = result.Activo,
+                CambioPassword = result.CambioPassword
             };
 
 
@@ -151,11 +159,27 @@ namespace VaselinaWeb.API.Controllers
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
                 Activo = user.Activo,
+                CambioPassword = false,
                 FechaCreacion = DateTime.Now,
                 FechaModificacion = DateTime.Now
             };
 
-            await userRepository.Add(usuario);
+            usuario = await userRepository.Add(usuario);
+
+            var objCambioPassword = await cambioPasswordRepository.Add(new CambioPassword
+            {
+                Id = Guid.NewGuid(),
+                MinutosExpiracion = 120,
+                Usuario = usuario,
+                Activo = true,
+                FechaCreacion = DateTime.Now,
+                FechaModificacion = DateTime.Now
+            });
+
+            var sender = configuration.GetSection("Settings").GetSection("EnvioCorreo").GetSection("Sender").Value;
+            var senderPassword = configuration.GetSection("Settings").GetSection("EnvioCorreo").GetSection("Password").Value;
+
+            UtilsSendEmail.SendEmailChangePassword(usuario.Correo, $"({usuario.Nombres} {usuario.Apellidos})", objCambioPassword.Id.ToString(), sender, senderPassword);
 
             return Ok();
         }
