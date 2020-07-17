@@ -7,6 +7,10 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200714215027_CreacionTablaProduct.cs" />
     <Compile Remove="Migrations\20200714215027_CreacionTablaProduct.Designer.cs" />
+    <Compile Remove="Migrations\20200715164034_CambioTipoImagenTablaProduct.cs" />
+    <Compile Remove="Migrations\20200715164034_CambioTipoImagenTablaProduct.Designer.cs" />
+    <Compile Remove="Migrations\20200715170926_CambioTipoTablaProducts.cs" />
+    <Compile Remove="Migrations\20200715170926_CambioTipoTablaProducts.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

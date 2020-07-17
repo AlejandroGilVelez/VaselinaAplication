@@ -16,7 +16,7 @@ namespace Framework.Models
         [Required]
         public int Peso { get; set; }
 
-        [Required]
-        public string Imagen { get; set; }
+
+        public byte[] Imagen { get; set; }
     }
 }

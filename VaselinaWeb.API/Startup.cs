@@ -8,6 +8,7 @@ using Framework.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -64,6 +65,10 @@ namespace VaselinaWeb.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            //else //Agregar imagen
+            //{
+            //    app.UseHsts();
+            //}
 
             app.UseHttpsRedirection();            
 
@@ -74,10 +79,19 @@ namespace VaselinaWeb.API
 
             app.UseAuthorization();
 
+            //// Para agregar imagen
+            //app.UseStaticFiles();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+            ////Para agregar imagen
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Could Not Find Anything");
+            //});
         }
     }
 }
