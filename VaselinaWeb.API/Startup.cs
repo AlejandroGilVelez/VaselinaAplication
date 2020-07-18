@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Framework.Data;
 using Framework.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -33,6 +34,9 @@ namespace VaselinaWeb.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //AutoMapper
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnetion"), 
                 b => b.MigrationsAssembly("VaselinaWeb.API")));
             services.AddControllers();
