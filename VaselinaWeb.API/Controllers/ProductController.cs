@@ -130,6 +130,26 @@ namespace VaselinaWeb.API.Controllers
         }
 
         /// <summary>
+        /// Método que elimina un producto.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var result = await productRepository.Find(x => x.Id == id);
+
+            if (result == null)
+            {
+                return NotFound();
+            }
+
+            await productRepository.Delete(result);
+
+            return Ok();
+        }
+
+        /// <summary>
         /// Método que crea un producto
         /// </summary>
         /// <param name="imagenes"></param>
@@ -176,6 +196,40 @@ namespace VaselinaWeb.API.Controllers
 
             return Ok();
         }
+
+        /// <summary>
+        /// Método que edita un producto.
+        /// </summary>
+        /// <param name="imagenes"></param>
+        /// <param name="product"></param>
+        /// <returns></returns>
+        [HttpPut("Update")]
+        public async Task<IActionResult> Update([FromForm] List<IFormFile> imagenes, [FromForm] ProductDto product)
+        {
+            var producto = await productRepository.Find(x => x.Id == product.Id);
+
+            if (producto == null)
+            {
+                return BadRequest("El producto no existe");
+            }
+
+            byte[] imagen = null;
+
+            if (imagenes.FirstOrDefault() != null)
+            {
+                imagen = ConvertImagen.ImagenToArray(imagenes.FirstOrDefault());                
+            }
+
+            producto.Nombre = product.Nombre;
+            producto.Descripcion = product.Descripcion;
+            producto.Peso = product.Peso;
+            producto.Imagen = imagen;
+            producto.FechaModificacion = DateTime.Now;
+
+            await productRepository.Edit(producto);
+
+            return Ok();
+        }        
 
         #endregion
     }
