@@ -11,6 +11,8 @@
     <Compile Remove="Migrations\20200715164034_CambioTipoImagenTablaProduct.Designer.cs" />
     <Compile Remove="Migrations\20200715170926_CambioTipoTablaProducts.cs" />
     <Compile Remove="Migrations\20200715170926_CambioTipoTablaProducts.Designer.cs" />
+    <Compile Remove="Migrations\20200720202128_SeAgregaCampoRolenUser.cs" />
+    <Compile Remove="Migrations\20200720202128_SeAgregaCampoRolenUser.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

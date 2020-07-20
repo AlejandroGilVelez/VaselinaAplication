@@ -51,7 +51,8 @@ namespace VaselinaWeb.API.Controllers
             var claims = new Claim[]
             {
                 new Claim(ClaimTypes.NameIdentifier, userSeleccionado.Id.ToString()),
-                new Claim(ClaimTypes.Name, $"{userSeleccionado.Nombres} {userSeleccionado.Apellidos}")
+                new Claim(ClaimTypes.Name, $"{userSeleccionado.Nombres} {userSeleccionado.Apellidos}"),
+                new Claim(ClaimTypes.Role, userSeleccionado.Rol)
             };
 
             var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("Miclavedecontraseña"));

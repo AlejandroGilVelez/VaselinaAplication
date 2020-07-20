@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
 using Framework.Dtos;
 using Framework.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using VaselinaWeb.API.Utilidades;
 
 namespace VaselinaWeb.API.Profiles

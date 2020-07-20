@@ -1,4 +1,6 @@
-﻿using Framework.Dtos;
+﻿using AutoMapper;
+using Framework.Dtos;
+using Framework.Enums;
 using Framework.Models;
 using Framework.Utilidades;
 using Microsoft.AspNetCore.Authorization;
@@ -22,16 +24,19 @@ namespace VaselinaWeb.API.Controllers
         private readonly IUserRepository userRepository;
         private readonly ICambioPasswordRepository cambioPasswordRepository;
         private readonly IConfiguration configuration;
+        private readonly IMapper mapper;
 
         #endregion
 
         #region Constructor
-        
-        public UserController(IUserRepository userRepository, ICambioPasswordRepository cambioPasswordRepository, IConfiguration configuration)
+
+        public UserController(IUserRepository userRepository, ICambioPasswordRepository cambioPasswordRepository, 
+            IConfiguration configuration, IMapper mapper)
         {
             this.userRepository = userRepository;
             this.cambioPasswordRepository = cambioPasswordRepository;
             this.configuration = configuration;
+            this.mapper = mapper;
         }
 
         #endregion
@@ -52,25 +57,8 @@ namespace VaselinaWeb.API.Controllers
             {
                 return NotFound();
             }
-
-            List<UserDto> userList = new List<UserDto>();
-
-            foreach (var item in result)
-            {
-                userList.Add(new UserDto
-                {
-                    Id = item.Id,
-                    NroIdentificacion = item.NroIdentificacion,
-                    Nombres = item.Nombres,
-                    Apellidos = item.Apellidos,
-                    Correo = item.Correo,
-                    Telefono = item.Telefono,
-                    Activo = item.Activo,
-                    CambioPassword = item.CambioPassword
-                });
-            }
-
-            return Ok(userList);
+           
+            return Ok(mapper.Map<List<UserDto>>(result));
         }
 
         /// <summary>
@@ -89,20 +77,7 @@ namespace VaselinaWeb.API.Controllers
                 return NotFound();
             }
 
-            var usuario = new UserDto
-            {
-                Id = result.Id,
-                NroIdentificacion = result.NroIdentificacion,
-                Nombres = result.Nombres,
-                Apellidos = result.Apellidos,
-                Correo = result.Correo,
-                Telefono = result.Telefono,
-                Activo = result.Activo,
-                CambioPassword = result.CambioPassword
-            };
-
-
-            return Ok(usuario);
+            return Ok(mapper.Map<UserDto>(result));
         }
 
         /// <summary>
@@ -132,6 +107,7 @@ namespace VaselinaWeb.API.Controllers
         /// <param name="user"></param>
         /// <returns></returns>
 
+        [Authorize(Roles = Roles.Administrador)]        
         [HttpPost("Create")]
         public async Task<IActionResult> Create([FromBody] UserDto user)
         {
@@ -148,21 +124,32 @@ namespace VaselinaWeb.API.Controllers
 
             UtilsPassword.CreatePasswordHash(user.Password, out passwordHash, out passwordSalt);
 
-            var usuario = new User
-            {
-                Id = Guid.NewGuid(),
-                NroIdentificacion = user.NroIdentificacion,
-                Nombres = user.Nombres,
-                Apellidos = user.Apellidos,
-                Correo = user.Correo,
-                Telefono = user.Telefono,
-                PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt,
-                Activo = user.Activo,
-                CambioPassword = false,
-                FechaCreacion = DateTime.Now,
-                FechaModificacion = DateTime.Now
-            };
+            //var usuario = new User
+            //{
+            //    Id = Guid.NewGuid(),
+            //    NroIdentificacion = user.NroIdentificacion,
+            //    Nombres = user.Nombres,
+            //    Apellidos = user.Apellidos,
+            //    Correo = user.Correo,
+            //    Telefono = user.Telefono,
+            //    PasswordHash = passwordHash,
+            //    PasswordSalt = passwordSalt,
+            //    Activo = user.Activo,
+            //    CambioPassword = false,                
+            //    FechaCreacion = DateTime.Now,
+            //    FechaModificacion = DateTime.Now
+            //};
+
+            var usuario = mapper.Map<User>(user);
+
+            usuario.Id = Guid.NewGuid();
+            usuario.FechaCreacion = DateTime.Now;
+            usuario.FechaModificacion = DateTime.Now;
+            usuario.PasswordHash = passwordHash;
+            usuario.PasswordSalt = passwordSalt;
+            usuario.CambioPassword = false;
+
+            usuario.Rol = ValidarRol(usuario.Rol);
 
             usuario = await userRepository.Add(usuario);
 
@@ -182,6 +169,19 @@ namespace VaselinaWeb.API.Controllers
             UtilsSendEmail.SendEmailChangePassword(usuario.Correo, $"({usuario.Nombres} {usuario.Apellidos})", objCambioPassword.Id.ToString(), sender, senderPassword);
 
             return Ok();
+        }
+
+        private string ValidarRol(string rol)
+        {
+            switch (rol)
+            {
+                case Roles.Administrador:
+                case Roles.Vendedores:
+                    return rol;
+
+                default: 
+                    return string.Empty;                    
+            }
         }
 
         /// <summary>
@@ -205,8 +205,9 @@ namespace VaselinaWeb.API.Controllers
             usuario.Apellidos = user.Apellidos;
             usuario.Correo = user.Correo;
             usuario.Telefono = user.Telefono;
-            usuario.FechaCreacion = DateTime.Now;
+            usuario.FechaModificacion = DateTime.Now;
             usuario.Activo = user.Activo;
+            usuario.Rol = user.Rol;
 
             await userRepository.Edit(usuario);
 

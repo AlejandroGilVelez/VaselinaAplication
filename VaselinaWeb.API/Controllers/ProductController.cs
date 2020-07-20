@@ -34,7 +34,7 @@ namespace VaselinaWeb.API.Controllers
         }
 
         #endregion
-      
+
 
         #region Acciones
 
@@ -53,7 +53,7 @@ namespace VaselinaWeb.API.Controllers
         //            // act on the Base64 data
         //        }
         //    }
-            
+
 
         //    return Ok(producto);
         //}
@@ -62,6 +62,7 @@ namespace VaselinaWeb.API.Controllers
         /// Método que retorna una lista de productos.
         /// </summary>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpGet("List")]
         public async Task<IActionResult> List()
         {
@@ -99,6 +100,7 @@ namespace VaselinaWeb.API.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [AllowAnonymous]
         [HttpGet("Get/{id}")]
         public async Task<IActionResult> Get(Guid id)
         {

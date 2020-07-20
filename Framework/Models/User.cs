@@ -32,5 +32,8 @@ namespace Framework.Models
         public bool Activo { get; set; }
         
         public bool CambioPassword { get; set; }
+
+        [Required]
+        public string Rol { get; set; }
     }
 }
