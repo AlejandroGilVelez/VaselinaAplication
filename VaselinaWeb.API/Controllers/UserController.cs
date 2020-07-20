@@ -30,7 +30,7 @@ namespace VaselinaWeb.API.Controllers
 
         #region Constructor
 
-        public UserController(IUserRepository userRepository, ICambioPasswordRepository cambioPasswordRepository, 
+        public UserController(IUserRepository userRepository, ICambioPasswordRepository cambioPasswordRepository,
             IConfiguration configuration, IMapper mapper)
         {
             this.userRepository = userRepository;
@@ -57,7 +57,7 @@ namespace VaselinaWeb.API.Controllers
             {
                 return NotFound();
             }
-           
+
             return Ok(mapper.Map<List<UserDto>>(result));
         }
 
@@ -107,7 +107,7 @@ namespace VaselinaWeb.API.Controllers
         /// <param name="user"></param>
         /// <returns></returns>
 
-        [Authorize(Roles = Roles.Administrador)]        
+        [Authorize(Roles = Roles.Administrador)]
         [HttpPost("Create")]
         public async Task<IActionResult> Create([FromBody] UserDto user)
         {
@@ -179,8 +179,8 @@ namespace VaselinaWeb.API.Controllers
                 case Roles.Vendedores:
                     return rol;
 
-                default: 
-                    return string.Empty;                    
+                default:
+                    return string.Empty;
             }
         }
 
@@ -234,3 +234,4 @@ namespace VaselinaWeb.API.Controllers
 
         #endregion
     }
+}
