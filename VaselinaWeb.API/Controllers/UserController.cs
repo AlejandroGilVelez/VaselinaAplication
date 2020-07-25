@@ -14,7 +14,7 @@ using VaselinaWeb.DataModel.Repositories;
 
 namespace VaselinaWeb.API.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = Roles.Administrador)]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -68,7 +68,7 @@ namespace VaselinaWeb.API.Controllers
         /// <returns></returns>
 
         [HttpGet("Get/{id}")]
-        public async Task<IActionResult> Get(Guid id)
+        public async Task<IActionResult> Get([FromRoute] Guid id)
         {
             var result = await userRepository.Find(x => x.Id == id);
 
@@ -87,7 +87,7 @@ namespace VaselinaWeb.API.Controllers
         /// <returns></returns>
 
         [HttpDelete("Delete/{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             var result = await userRepository.Find(x => x.Id == id);
 
@@ -107,7 +107,7 @@ namespace VaselinaWeb.API.Controllers
         /// <param name="user"></param>
         /// <returns></returns>
 
-        [Authorize(Roles = Roles.Administrador)]
+        
         [HttpPost("Create")]
         public async Task<IActionResult> Create([FromBody] UserDto user)
         {
