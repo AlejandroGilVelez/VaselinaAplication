@@ -40,12 +40,14 @@ namespace VaselinaWeb.API
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnetion"), 
                 b => b.MigrationsAssembly("VaselinaWeb.API")));
             services.AddControllers();
+            services.AddCors();
 
             // Inyección de Repositorios
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IContactRepository, ContactRepository>();
             services.AddScoped<ICambioPasswordRepository, CambioPasswordRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IClientRepository, ClientRepository>();
 
             // Definimos autenticación del aplicativo
             services.AddAuthentication(x =>
@@ -71,35 +73,25 @@ namespace VaselinaWeb.API
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();               
             }
-            //else //Agregar imagen
-            //{
-            //    app.UseHsts();
-            //}
+            
+            // Allow all request
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
-            app.UseHttpsRedirection();            
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 
             // Se agrega al momento de definir la autenticación del aplicativo.
             app.UseAuthentication();
 
-            app.UseAuthorization();
-
-            //// Para agregar imagen
-            //app.UseStaticFiles();
+            app.UseAuthorization();            
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-
-            ////Para agregar imagen
-            //app.Run(async (context) =>
-            //{
-            //    await context.Response.WriteAsync("Could Not Find Anything");
-            //});
         }
     }
 }

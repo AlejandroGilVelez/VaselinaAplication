@@ -9,6 +9,8 @@ namespace VaselinaWeb.DataModel.Repositories
     {
         Task<IList<T>> GetAll();
         Task<T> Find(Expression<Func<T, bool>> predicate);
+        Task<T> FindByKey(object id);
+        Task<bool> ObjectExist(object id);
         Task<T> Find(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes);
         Task<IList<T>> FindAll(Expression<Func<T, bool>> predicate);
         Task<T> Add(T entity);

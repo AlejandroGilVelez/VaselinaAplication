@@ -35,12 +35,24 @@ namespace VaselinaWeb.DataModel.Repositories
             context.Set<T>().Update(entity);
             await context.SaveChangesAsync();
 
-            return entity;            
+            return entity;
         }
 
         public async Task<T> Find(Expression<Func<T, bool>> predicate)
         {
             return await context.Set<T>().Where(predicate).FirstOrDefaultAsync();
+        }
+
+        public async Task<T> FindByKey(object id)
+        {
+            return await context.Set<T>().FindAsync(id);
+        }
+
+        public async Task<bool> ObjectExist(object id)
+        {
+            var dbObject = await FindByKey(id);
+
+            return dbObject != null;
         }
 
         public async Task<T> Find(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
@@ -59,14 +71,14 @@ namespace VaselinaWeb.DataModel.Repositories
         {
             IList<T> consulta = await context.Set<T>().Where(predicate).ToListAsync();
 
-            return consulta;            
+            return consulta;
         }
 
         public async Task<IList<T>> GetAll()
         {
             var consulta = await context.Set<T>().ToListAsync();
 
-            return consulta;            
+            return consulta;
         }
     }
 }
