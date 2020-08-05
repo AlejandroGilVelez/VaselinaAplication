@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using VaselinaWeb.API.CustomExceptionMiddleware;
 using VaselinaWeb.DataModel.Repositories;
 
 namespace VaselinaWeb.API
@@ -75,7 +76,9 @@ namespace VaselinaWeb.API
             {
                 app.UseDeveloperExceptionPage();               
             }
-            
+
+            app.UseMiddleware<ExceptionMiddleware>();
+
             // Allow all request
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
