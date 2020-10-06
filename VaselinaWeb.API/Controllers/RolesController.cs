@@ -20,6 +20,7 @@ namespace VaselinaWeb.API.Controllers
 
             return Ok(propertyInfos.Select(x => x.Name).OrderBy(x => x));
         }
+        
         #endregion
     }
 }

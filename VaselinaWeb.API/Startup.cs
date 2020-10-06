@@ -18,6 +18,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using Serilog;
 using VaselinaWeb.API.CustomExceptionMiddleware;
 using VaselinaWeb.DataModel.Repositories;
 
@@ -67,6 +69,26 @@ namespace VaselinaWeb.API
                         ValidateAudience = false
                     };
                 });
+
+            // Agregamos Swagger
+            //services.AddSwaggerGen(options =>
+            //{
+            //    var groupName = "v1";
+
+            //    options.SwaggerDoc(groupName, new OpenApiInfo
+            //    {
+            //        Title = $"Vaselina API {groupName}",
+            //        Version = groupName,
+            //        Description = "Vaselina API",
+            //        Contact = new OpenApiContact
+            //        {
+            //            Name = "Vaselina",
+            //            Email = string.Empty,
+            //            Url = new Uri("https://github.com/AlejandroGilVelez")
+            //        }
+            //    });
+            //});
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,6 +99,7 @@ namespace VaselinaWeb.API
                 app.UseDeveloperExceptionPage();               
             }
 
+            // Para agregar el Middleware
             app.UseMiddleware<ExceptionMiddleware>();
 
             // Allow all request
@@ -84,12 +107,21 @@ namespace VaselinaWeb.API
 
             app.UseHttpsRedirection();
 
+            // Agregamos Swagger
+            //app.UseSwagger();
+            //app.UseSwaggerUI(c =>
+            //{
+            //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Vaselina API V1");
+            //});
+
             app.UseRouting();
 
             // Se agrega al momento de definir la autenticación del aplicativo.
             app.UseAuthentication();
 
-            app.UseAuthorization();            
+            app.UseAuthorization();
+
+            app.UseSerilogRequestLogging();
 
             app.UseEndpoints(endpoints =>
             {

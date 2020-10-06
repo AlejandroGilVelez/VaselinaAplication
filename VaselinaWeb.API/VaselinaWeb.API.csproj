@@ -5,17 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200714215027_CreacionTablaProduct.cs" />
-    <Compile Remove="Migrations\20200714215027_CreacionTablaProduct.Designer.cs" />
-    <Compile Remove="Migrations\20200715164034_CambioTipoImagenTablaProduct.cs" />
-    <Compile Remove="Migrations\20200715164034_CambioTipoImagenTablaProduct.Designer.cs" />
-    <Compile Remove="Migrations\20200715170926_CambioTipoTablaProducts.cs" />
-    <Compile Remove="Migrations\20200715170926_CambioTipoTablaProducts.Designer.cs" />
-    <Compile Remove="Migrations\20200720202128_SeAgregaCampoRolenUser.cs" />
-    <Compile Remove="Migrations\20200720202128_SeAgregaCampoRolenUser.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.5" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.6" />
@@ -26,6 +15,10 @@
     </PackageReference>
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.6.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.3" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
+    <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
+    <PackageReference Include="Serilog.Sinks.MSSqlServer" Version="5.5.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.1" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.6.0" />
   </ItemGroup>
 
@@ -33,6 +26,8 @@
     <ProjectReference Include="..\Framework\Framework.csproj" />
     <ProjectReference Include="..\VaselinaWeb.DataModel\VaselinaWeb.DataModel.csproj" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 
 </Project>

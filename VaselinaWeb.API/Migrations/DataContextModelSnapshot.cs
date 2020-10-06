@@ -133,6 +133,41 @@ namespace VaselinaWeb.API.Migrations
                     b.ToTable("Contacts");
                 });
 
+            modelBuilder.Entity("Framework.Models.LogAudit", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaModificacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Level")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LogEvent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MessageTemplate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TimeStamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Xml")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LogsAudit");
+                });
+
             modelBuilder.Entity("Framework.Models.Product", b =>
                 {
                     b.Property<Guid>("Id")

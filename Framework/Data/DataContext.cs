@@ -19,5 +19,7 @@ namespace Framework.Data
 
         public DbSet<Client> Clients { get; set; }
 
+        public DbSet<LogAudit> LogsAudit { get; set; }
+
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace VaselinaWeb.API.Controllers
 {
@@ -38,6 +39,7 @@ namespace VaselinaWeb.API.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
-        }
+        }        
+
     }
 }

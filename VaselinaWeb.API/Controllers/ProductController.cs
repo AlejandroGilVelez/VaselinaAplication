@@ -72,7 +72,7 @@ namespace VaselinaWeb.API.Controllers
             {
                 return NotFound();
             }
-            throw new Exception("Vali verga");
+            //throw new Exception("Vali verga"); // Prueba de ExceptionMiddleware
             //List<ProductDto> productList = new List<ProductDto>();           
 
 

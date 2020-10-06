@@ -6,15 +6,18 @@ using Framework.Utilidades;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using VaselinaWeb.API.Utilidades;
 using VaselinaWeb.DataModel.Repositories;
 
 namespace VaselinaWeb.API.Controllers
 {
-    [Authorize(Roles = Roles.Administrador)]
+    //[Authorize(Roles = Roles.Administrador)]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -25,18 +28,21 @@ namespace VaselinaWeb.API.Controllers
         private readonly ICambioPasswordRepository cambioPasswordRepository;
         private readonly IConfiguration configuration;
         private readonly IMapper mapper;
+        private readonly ILogger<UserController> logger;
+
 
         #endregion
 
         #region Constructor
 
         public UserController(IUserRepository userRepository, ICambioPasswordRepository cambioPasswordRepository,
-            IConfiguration configuration, IMapper mapper)
+            IConfiguration configuration, IMapper mapper, ILogger<UserController> logger)
         {
             this.userRepository = userRepository;
             this.cambioPasswordRepository = cambioPasswordRepository;
             this.configuration = configuration;
             this.mapper = mapper;
+            this.logger = logger;
         }
 
         #endregion
@@ -48,6 +54,7 @@ namespace VaselinaWeb.API.Controllers
         /// </summary>
         /// <returns></returns>
 
+        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         [HttpGet("List")]
         public async Task<IActionResult> List()
         {
@@ -57,6 +64,8 @@ namespace VaselinaWeb.API.Controllers
             {
                 return NotFound();
             }
+
+            logger.LogError("Error compañero");
 
             return Ok(mapper.Map<List<UserDto>>(result));
         }
@@ -96,7 +105,9 @@ namespace VaselinaWeb.API.Controllers
                 return NotFound();
             }
 
-            await userRepository.Delete(result);
+            var countDel = await cambioPasswordRepository.DeletePorUser(id);
+
+            var resultDel = await userRepository.Delete(result);
 
             return Ok();
         }
