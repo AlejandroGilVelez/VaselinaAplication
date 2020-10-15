@@ -1,6 +1,5 @@
 ﻿using Framework.Data;
 using Framework.Models;
-using Org.BouncyCastle.Math.EC.Rfc7748;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

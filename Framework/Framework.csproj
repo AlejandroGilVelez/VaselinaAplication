@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\EmailTemplate\ChangePassword.html" />
+    <None Remove="Resources\EmailTemplate\NotificacionContacto.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\EmailTemplate\ChangePassword.html" />
+    <EmbeddedResource Include="Resources\EmailTemplate\NotificacionContacto.html" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MailKit" Version="2.7.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.5">

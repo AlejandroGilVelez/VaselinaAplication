@@ -1,69 +1,69 @@
 ﻿<!DOCTYPE html>
-<html lang='en' dir='ltr'>
+<html lang="en" dir="ltr">
 <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <title></title>
 </head>
-<body style='background-color:white; width: 50%; height: 300px; aling:center;'>
-    <table style='border: 1px solid black; border-radius: 10px; margin: 0 auto; background: #33ACFF; width: 50%; height: 300px;'>
-        <div class='container'>
-            <th colspan='2' style='text-align: center;'>
-                <h3 style='font-family: Arial, Helvetica, sans-serif;'>Notificación Contactos</h3>
+<body style="background-color:white; width: 50%; height: 300px; aling:center;">
+    <table style="border: 1px solid black; border-radius: 10px; margin: 0 auto; background: #33ACFF; width: 50%; height: 300px;">
+        <div class="container">
+            <th colspan="2" style="text-align: center;">
+                <h3 style="font-family: Arial, Helvetica, sans-serif;">Notificación Contactos</h3>
             </th>
             <tr>
-                <th style='text-align: left;'>
-                    <label style='font-family: Arial, Helvetica, sans-serif;' for='Nombres'>Nombres:</label>
+                <th style="text-align: left;">
+                    <label style="font-family: Arial, Helvetica, sans-serif;" for="Nombres">Nombres:</label>
                 </th>
-                <td style='text-align: center;'>
-                    <input type='text'
-                           class='form-control'
-                           id='Nombres'
-                           style='margin: 2px; border-radius: 5px; font-family: Arial, Helvetica, sans-serif;'
-                           value='{0}' />
+                <td style="text-align: center;">
+                    <input type="text"
+                           class="form-control"
+                           id="Nombres"
+                           style="margin: 2px; border-radius: 5px; font-family: Arial, Helvetica, sans-serif;"
+                           value="{{nombres}}" />
                 </td>
             </tr>
             <tr>
-                <th style='text-align: left;'>
-                    <label style='font-family: Arial, Helvetica, sans-serif;' for='Empresa'>Empresa:</label>
+                <th style="text-align: left;">
+                    <label style="font-family: Arial, Helvetica, sans-serif;" for="Empresa">Empresa:</label>
                 </th>
-                <td style='text-align: center;'>
-                    <input type='text'
-                           class='form-control'
-                           id='Empresa'
-                           style='margin: 2px; border-radius: 5px; font-family: Arial, Helvetica, sans-serif;'
-                           value='{1}' />
+                <td style="text-align: center;">
+                    <input type="text"
+                           class="form-control"
+                           id="Empresa"
+                           style="margin: 2px; border-radius: 5px; font-family: Arial, Helvetica, sans-serif;"
+                           value="{{empresa}}" />
                 </td>
             </tr>
             <tr>
-                <th style='text-align: left;'>
-                    <label style='font-family: Arial, Helvetica, sans-serif;' for='Correo'>Correo:</label>
+                <th style="text-align: left;">
+                    <label style="font-family: Arial, Helvetica, sans-serif;" for="Correo">Correo:</label>
                 </th>
-                <td style='text-align: center;'>
-                    <input type='Email'
-                           class='form-control'
-                           id='Correo'
-                           style='margin: 2px; border-radius: 5px; font-family: Arial, Helvetica, sans-serif;'
-                           value='{2}' />
+                <td style="text-align: center;">
+                    <input type="Email"
+                           class="form-control"
+                           id="Correo"
+                           style="margin: 2px; border-radius: 5px; font-family: Arial, Helvetica, sans-serif;"
+                           value="{{correo}}" />
                 </td>
             </tr>
             <tr>
-                <th style='text-align: left;'>
-                    <label style='font-family: Arial, Helvetica, sans-serif;' for='Telefono'>Teléfono/Celular:</label>
+                <th style="text-align: left;">
+                    <label style="font-family: Arial, Helvetica, sans-serif;" for="Telefono">Teléfono/Celular:</label>
                 </th>
-                <td style='text-align: center;'>
-                    <input type='text'
-                           class='form-control'
-                           id='Telefono'
-                           style='margin: 2px; border-radius: 5px; font-family: Arial, Helvetica, sans-serif;'
-                           value='{3}' />
+                <td style="text-align: center;">
+                    <input type="text"
+                           class="form-control"
+                           id="Telefono"
+                           style="margin: 2px; border-radius: 5px; font-family: Arial, Helvetica, sans-serif;"
+                           value="{{telefono}}" />
                 </td>
             </tr>
             <tr>
-                <th style='text-align: left;'>
-                    <label style='font-family: Arial, Helvetica, sans-serif;' for='Telefono'>Mensaje:</label>
+                <th style="text-align: left;">
+                    <label style="font-family: Arial, Helvetica, sans-serif;" for="Mensaje">Mensaje:</label>
                 </th>
-                <td style='text-align: center;'>
-                    <textarea style='margin: 2px; border-radius: 5px; font-family: Arial, Helvetica, sans-serif;' cols='22' class='form-control' required>{4}</textarea>
+                <td style="text-align: center;">
+                    <textarea style="margin: 2px; border-radius: 5px; font-family: Arial, Helvetica, sans-serif;" cols="22" class="form-control" required>{{mensaje}}</textarea>
                 </td>
             </tr>
         </div>

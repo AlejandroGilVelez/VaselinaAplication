@@ -3,7 +3,6 @@ using Framework.Models;
 using Framework.Utilidades;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -141,7 +140,7 @@ namespace VaselinaWeb.API.Controllers
             var sender = configuration.GetSection("Settings").GetSection("EnvioCorreo").GetSection("Sender").Value;
             var password = configuration.GetSection("Settings").GetSection("EnvioCorreo").GetSection("Password").Value;
 
-            UtilsSendEmail.SendEmailNotificacion("gelu170@gmail.com", contactClient.Nombres, contactClient.Empresa, contactClient.Correo, contactClient.Telefono, contactClient.Mensaje, sender, password);
+            UtilsSendEmail.SendEmailNotificacion(contactClient.Correo, contactClient.Nombres, contactClient.Empresa, contactClient.Correo, contactClient.Telefono, contactClient.Mensaje, sender, password);
 
             return Ok();
 
