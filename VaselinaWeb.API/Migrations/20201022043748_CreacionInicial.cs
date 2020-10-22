@@ -15,13 +15,14 @@ namespace VaselinaWeb.API.Migrations
                     FechaCreacion = table.Column<DateTime>(nullable: false),
                     FechaModificacion = table.Column<DateTime>(nullable: false),
                     Nit = table.Column<string>(maxLength: 150, nullable: false),
-                    Nombre = table.Column<string>(maxLength: 150, nullable: false),
+                    Nombres = table.Column<string>(maxLength: 150, nullable: false),
                     Apellidos = table.Column<string>(maxLength: 150, nullable: false),
                     Telefono = table.Column<string>(nullable: true),
                     Direccion = table.Column<string>(nullable: true),
                     Correo = table.Column<string>(nullable: true),
                     Ciudad = table.Column<string>(nullable: true),
-                    Pais = table.Column<string>(nullable: true)
+                    Pais = table.Column<string>(nullable: true),
+                    Zona = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

@@ -8,7 +8,7 @@ namespace Framework.Dtos
 
         public string Nit { get; set; }
        
-        public string Nombre { get; set; }
+        public string Nombres { get; set; }
        
         public string Apellidos { get; set; }
 
@@ -21,5 +21,7 @@ namespace Framework.Dtos
         public string Ciudad { get; set; }
 
         public string Pais { get; set; }
+
+        public string Zona { get; set; }
     }
 }

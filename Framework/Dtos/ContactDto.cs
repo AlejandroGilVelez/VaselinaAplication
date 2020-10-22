@@ -15,5 +15,7 @@ namespace Framework.Dtos
         public string Telefono { get; set; }
         
         public string Mensaje { get; set; }
+
+        public string Zona { get; set; }
     }
 }

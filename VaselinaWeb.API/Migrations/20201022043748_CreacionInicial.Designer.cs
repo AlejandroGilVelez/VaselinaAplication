@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace VaselinaWeb.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200815012110_CreacionInicial")]
+    [Migration("20201022043748_CreacionInicial")]
     partial class CreacionInicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -80,7 +80,7 @@ namespace VaselinaWeb.API.Migrations
                         .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
-                    b.Property<string>("Nombre")
+                    b.Property<string>("Nombres")
                         .IsRequired()
                         .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
@@ -89,6 +89,9 @@ namespace VaselinaWeb.API.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Telefono")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Zona")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
