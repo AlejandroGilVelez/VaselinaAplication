@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Framework.Dtos;
 using Framework.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,8 @@ namespace VaselinaWeb.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Vendedores,Administrador")]
+
     public class ClientController : ControllerBase
     {
 

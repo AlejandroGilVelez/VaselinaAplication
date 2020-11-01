@@ -27,5 +27,9 @@ namespace Framework.Models
         public string Pais { get; set; }
 
         public string Zona { get; set; }
+
+        public string Contacto { get; set; }
+
+        public string Observaciones { get; set; }
     }
 }

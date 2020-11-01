@@ -21,5 +21,9 @@ namespace Framework.Data
 
         public DbSet<LogAudit> LogsAudit { get; set; }
 
+        public DbSet<Supplie> Supplie { get; set; }
+
+        public DbSet<Provider> Provider { get; set; }
+
     }
 }

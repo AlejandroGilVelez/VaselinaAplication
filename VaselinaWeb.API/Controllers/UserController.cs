@@ -3,6 +3,7 @@ using Framework.Dtos;
 using Framework.Enums;
 using Framework.Models;
 using Framework.Utilidades;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -14,7 +15,7 @@ using VaselinaWeb.DataModel.Repositories;
 
 namespace VaselinaWeb.API.Controllers
 {
-    //[Authorize(Roles = Roles.Administrador)]
+    [Authorize(Roles = Roles.Administrador)]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
