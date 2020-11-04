@@ -43,6 +43,12 @@ namespace VaselinaWeb.API
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnetion"), 
                 b => b.MigrationsAssembly("VaselinaWeb.API")));
             services.AddControllers();
+
+            //services.AddSwaggerGen(c =>
+            //{
+            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+            //});
+
             services.AddCors();
 
             // Inyección de Repositorios
@@ -72,7 +78,7 @@ namespace VaselinaWeb.API
                     };
                 });
 
-            // Agregamos Swagger
+            //Agregamos Swagger
             //services.AddSwaggerGen(options =>
             //{
             //    var groupName = "v1";
@@ -90,6 +96,36 @@ namespace VaselinaWeb.API
             //        }
             //    });
             //});
+
+            services.AddSwaggerGen(c =>
+            {
+                //c.EnableAnnotations();
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Api",
+                    Description = "Api  Web API",
+                });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter JWT with Bearer into field",
+                    Name = "Authorization",
+                    Scheme = "bearer",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                    {
+                        {
+                            new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+                            },
+                            new List<string>()
+                        }
+                    });
+                c.CustomSchemaIds(x => x.FullName);
+            });
 
         }
 
@@ -110,11 +146,13 @@ namespace VaselinaWeb.API
             app.UseHttpsRedirection();
 
             // Agregamos Swagger
-            //app.UseSwagger();
-            //app.UseSwaggerUI(c =>
-            //{
-            //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Vaselina API V1");
-            //});
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                //c.SwaggerEndpoint("v1/swagger.json", "My API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                //c.RoutePrefix = string.Empty;
+            });
 
             app.UseRouting();
 
@@ -128,7 +166,7 @@ namespace VaselinaWeb.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-            });
+            });                     
         }
     }
 }

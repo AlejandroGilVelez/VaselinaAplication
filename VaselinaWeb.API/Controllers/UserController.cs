@@ -116,7 +116,7 @@ namespace VaselinaWeb.API.Controllers
         /// <param name="user"></param>
         /// <returns></returns>
 
-        
+
         [HttpPost("Create")]
         public async Task<IActionResult> Create([FromBody] UserDto user)
         {

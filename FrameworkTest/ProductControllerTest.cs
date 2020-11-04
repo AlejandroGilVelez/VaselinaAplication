@@ -34,7 +34,7 @@ namespace FrameworkTest
                 var fechaActual = DateTime.Now;
                 var peso = aleatorio.Next(30, 150);
 
-                registrosEnBD.Add(new Product 
+                registrosEnBD.Add(new Product
                 {
                     Descripcion = $"Descripcion test {i}",
                     Nombre = $"Nombre prueba {i}",
@@ -51,9 +51,9 @@ namespace FrameworkTest
                     Nombre = $"Nombre prueba {i}",
                     Id = id,
                     Peso = peso,
-                    Imagen = null                    
+                    Imagen = null
                 });
-            }            
+            }
 
             productRespository.Setup(x => x.GetAll()).Returns(Task.FromResult(registrosEnBD));
 
@@ -81,14 +81,14 @@ namespace FrameworkTest
                 Assert.AreEqual(objRespuesta[i].Peso, esperado[i].Peso);
                 Assert.AreEqual(objRespuesta[i].Nombre, esperado[i].Nombre);
                 Assert.AreEqual(objRespuesta[i].Imagen, esperado[i].Imagen);
-            }            
+            }
         }
 
         [Test]
         public void GetListNullTest()
         {
             //Arrange - Configuracion
-            Mock<IProductRepository> productRespository = new Mock<IProductRepository>();           
+            Mock<IProductRepository> productRespository = new Mock<IProductRepository>();
 
             var config = new MapperConfiguration(opts =>
             {
@@ -101,19 +101,19 @@ namespace FrameworkTest
 
             //Act - Ejecución
             IActionResult resultado = controller.List().Result;
-            var respuesta = (NotFoundResult)resultado;            
+            var respuesta = (NotFoundResult)resultado;
 
             //Assert - Prueba
             respuesta.ShouldNotBeNull();
-          
+
         }
 
         [Test]
         public void GetIdTest()
         {
             //Arrange - Configuracion
-            Mock<IProductRepository> productRespository = new Mock<IProductRepository>();            
-            
+            Mock<IProductRepository> productRespository = new Mock<IProductRepository>();
+
             Random aleatorio = new Random();
 
             var id = Guid.NewGuid();

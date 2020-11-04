@@ -221,7 +221,7 @@ namespace VaselinaWeb.API.Controllers
 
             if (imagenes.FirstOrDefault() != null)
             {
-                imagen = ConvertImagen.ImagenToArray(imagenes.FirstOrDefault());                
+                imagen = ConvertImagen.ImagenToArray(imagenes.FirstOrDefault());
             }
 
             producto.Nombre = product.Nombre;
@@ -233,7 +233,7 @@ namespace VaselinaWeb.API.Controllers
             await productRepository.Edit(producto);
 
             return Ok();
-        }        
+        }
 
         #endregion
     }

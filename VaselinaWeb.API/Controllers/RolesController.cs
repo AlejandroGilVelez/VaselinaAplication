@@ -15,12 +15,12 @@ namespace VaselinaWeb.API.Controllers
 
         [HttpGet("List")]
         public async Task<IActionResult> List()
-        {            
+        {
             var propertyInfos = typeof(Roles).GetFields().ToList();
 
             return Ok(propertyInfos.Select(x => x.Name).OrderBy(x => x));
         }
-        
+
         #endregion
     }
 }
