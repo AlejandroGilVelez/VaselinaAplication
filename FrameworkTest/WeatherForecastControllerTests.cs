@@ -14,35 +14,35 @@ namespace FrameworkTest
 {
     public class WeatherForecastControllerTests 
     {
-        [Test]
-        public void GetSumariesTest()
-        {
-            //Arrange - Configuracion
-            Mock<ILogger<WeatherForecastController>> logger = new Mock<ILogger<WeatherForecastController>>();
+        //[Test]
+        //public void GetSumariesTest()
+        //{
+        //    Arrange - Configuracion
+        //    Mock<ILogger<WeatherForecastController>> logger = new Mock<ILogger<WeatherForecastController>>();
 
-            var controller = new WeatherForecastController(logger.Object);
+        //    var controller = new WeatherForecastController(logger.Object);
 
-            //Act - Ejecución
-            var resultado = controller.GetSumaries();
+        //    Act - Ejecución
+        //    var resultado = controller.GetSumaries();
 
-            //Assert - Prueba
-            Assert.AreEqual(resultado.Length, 10);
-        }
+        //    Assert - Prueba
+        //    Assert.AreEqual(resultado.Length, 10);
+        //}
 
-        [Test]
-        public void GetTest()
-        {
-            //Arrange - Configuracion
-            Mock<ILogger<WeatherForecastController>> logger = new Mock<ILogger<WeatherForecastController>>();
+        //[Test]
+        //public void GetTest()
+        //{
+        //    Arrange - Configuracion
+        //    Mock<ILogger<WeatherForecastController>> logger = new Mock<ILogger<WeatherForecastController>>();
 
-            var controller = new WeatherForecastController(logger.Object);
+        //    var controller = new WeatherForecastController(logger.Object);
 
-            //Act - Ejecución
-            var resultado = controller.Get();
+        //    Act - Ejecución
+        //    var resultado = controller.Get();
 
-            //Assert - Prueba
-            Assert.AreEqual(resultado.Count(), 5);
-            Assert.AreEqual(typeof(WeatherForecast),resultado.FirstOrDefault().GetType());
-        }
+        //    Assert - Prueba
+        //    Assert.AreEqual(resultado.Count(), 5);
+        //    Assert.AreEqual(typeof(WeatherForecast), resultado.FirstOrDefault().GetType());
+        //}
     }
 }

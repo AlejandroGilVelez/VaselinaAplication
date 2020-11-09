@@ -39,7 +39,7 @@ namespace VaselinaWeb.API.Controllers
         /// Metodo que retorna una lista de contactos.
         /// </summary>
         /// <returns></returns>
-        
+
         [HttpGet("List")]
         public async Task<IActionResult> List()
         {
@@ -49,7 +49,7 @@ namespace VaselinaWeb.API.Controllers
             {
                 return NotFound();
             }
-                        
+
             List<ContactDto> contacts = new List<ContactDto>();
 
             foreach (var item in result)
@@ -73,9 +73,9 @@ namespace VaselinaWeb.API.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        
+
         [HttpGet("Get/{id}")]
-        public async Task<IActionResult> Get(Guid id) 
+        public async Task<IActionResult> Get(Guid id)
         {
             var result = await contactRepository.Find(x => x.Id == id);
 
@@ -94,7 +94,7 @@ namespace VaselinaWeb.API.Controllers
         /// <returns></returns>
 
         [HttpDelete("Delete/{id}")]
-        public async Task<IActionResult> Delete(Guid id) 
+        public async Task<IActionResult> Delete(Guid id)
         {
             var result = await contactRepository.Find(x => x.Id == id);
 
@@ -116,7 +116,7 @@ namespace VaselinaWeb.API.Controllers
 
         [HttpPost("Create")]
         public async Task<IActionResult> Create([FromBody] ContactDto contact)
-        {          
+        {
 
             if (contact == null)
             {
